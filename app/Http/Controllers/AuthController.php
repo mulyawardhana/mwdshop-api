@@ -8,10 +8,10 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api', ['except' => ['login','register']]);
+    // }
 
     /**
      * Store a new user.
@@ -24,7 +24,7 @@ class AuthController extends Controller
         //validate incoming requests
         $this->validate($request, [
             'username' => 'required|string|unique:users',
-            'password' => 'required|confirmed',
+            'password' => 'required',
         ]);
 
         try
@@ -32,6 +32,8 @@ class AuthController extends Controller
             $user = new User;
             $user->username= $request->input('username');
             $user->password = app('hash')->make($request->input('password'));
+            $user->email = $request->input('email');
+            $user->status = $request->input('status');
             $user->save();
 
             return response()->json( [
@@ -82,5 +84,8 @@ class AuthController extends Controller
     public function me()
     {
         return response()->json(auth()->user());
+        // $users = User::get();
+        // dd($users);
+        // return response()->json($users);
     }
 }
