@@ -15,10 +15,24 @@
 // $router->group(['middleware' => 'cors','prefix' => 'api'], function () use ($router) {
     $router->group(['middleware' => 'auth','prefix' => 'api'], function () use ($router) {
     //All the routes you want to allow CORS for
+    // USER ROUTING
     $router->get('users', 'Master\UserController@index');
     $router->post('users', 'Master\UserController@store');
     $router->get('users/{id}', 'Master\UserController@show');
     $router->patch('users/{id}', 'Master\UserController@update');
+    // END
+    // USER CATEGORY
+    $router->get('category', 'Master\CategoryController@index');
+    $router->post('category', 'Master\CategoryController@store');
+    $router->get('category/{id}', 'Master\CategoryController@show');
+    $router->patch('category/{id}', 'Master\CategoryController@update');
+    // END
+
+     // USER CATEGORY
+    $router->get('product', 'Master\ProductController@index');
+    $router->post('product/search', 'Master\ProductController@index');
+    $router->post('product', 'Master\ProductController@store');
+     // END
     $router->get('me', 'AuthController@me');
   });
 // $router->get('/', function () use ($router) {
